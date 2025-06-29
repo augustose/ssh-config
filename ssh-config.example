@@ -1,0 +1,60 @@
+# SSH Configuration Example
+# This file shows the structure of a typical SSH config file
+# Copy this file to ~/.ssh/config and modify with your actual server details
+
+# Production server
+Host prod-server
+    HostName example.com
+    User admin
+    Port 22
+    IdentityFile ~/.ssh/id_rsa
+    ForwardAgent yes
+    ServerAliveInterval 60
+
+# Staging server
+Host staging-server
+    HostName staging.example.com
+    User deploy
+    Port 2222
+    IdentityFile ~/.ssh/staging_key
+    ForwardAgent yes
+
+# Development server
+Host dev-server
+    HostName dev.example.com
+    User developer
+    Port 22
+    IdentityFile ~/.ssh/dev_key
+
+# Database server
+Host db-server
+    HostName db.example.com
+    User dbadmin
+    Port 22
+    IdentityFile ~/.ssh/db_key
+    ServerAliveInterval 30
+
+# Web server with custom configuration
+Host web-server
+    HostName web.example.com
+    User webadmin
+    Port 22
+    IdentityFile ~/.ssh/web_key
+    ForwardAgent yes
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+
+# Backup server
+Host backup-server
+    HostName backup.example.com
+    User backup
+    Port 22
+    IdentityFile ~/.ssh/backup_key
+
+# Load balancer
+Host lb-server
+    HostName lb.example.com
+    User lbadmin
+    Port 22
+    IdentityFile ~/.ssh/lb_key
+    ForwardAgent yes 

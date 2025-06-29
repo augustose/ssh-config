@@ -1,0 +1,322 @@
+#!/bin/bash
+
+# ssh-connect: Interactive SSH connection manager
+#
+# Author: Augusto Sosa Escalada <augustose@gmail.com>
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+CONFIG_FILE="$HOME/.ssh/config"
+FILTER=""
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
+CYAN='\033[0;36m'
+NC='\033[0m' # No Color
+
+# Ensure the config file exists
+ensure_config_file() {
+    if [ ! -d "$HOME/.ssh" ]; then
+        mkdir -p "$HOME/.ssh"
+        chmod 700 "$HOME/.ssh"
+    fi
+    
+    if [ ! -f "$CONFIG_FILE" ]; then
+        touch "$CONFIG_FILE"
+        chmod 600 "$CONFIG_FILE"
+        echo "Created empty SSH config file at $CONFIG_FILE"
+    fi
+}
+
+# Show help message
+show_help() {
+    echo -e "${CYAN}ssh-connect: Interactive SSH connection manager${NC}"
+    echo ""
+    echo "Usage: ssh-connect [OPTION] [SEARCH_TERM]"
+    echo ""
+    echo "Options:"
+    echo "  -h, --help     Show this help message"
+    echo "  -i, --interactive  Start in interactive mode (default)"
+    echo "  -l, --list     List all available connections"
+    echo "  -f, --filter   Apply filter to connection names"
+    echo ""
+    echo "Examples:"
+    echo "  ssh-connect                    # Interactive mode"
+    echo "  ssh-connect -l                 # List all connections"
+    echo "  ssh-connect production         # Filter connections containing 'production'"
+    echo "  ssh-connect -f staging         # Same as above"
+    echo ""
+    echo "Interactive Mode Commands:"
+    echo "  [number]       Connect to the numbered server"
+    echo "  f <term>       Filter connections by term"
+    echo "  c              Clear filter"
+    echo "  l              List connections"
+    echo "  q              Quit"
+    echo "  h              Show help"
+}
+
+# Get all available hosts from config file
+get_hosts() {
+    local filter="$1"
+    local hosts=()
+    
+    if [ ! -f "$CONFIG_FILE" ]; then
+        return 1
+    fi
+    
+    # Read all non-commented Host entries
+    while IFS= read -r line; do
+        host_name=$(echo "$line" | sed 's/^Host //')
+        if [ -n "$filter" ]; then
+            if [[ "$host_name" == *"$filter"* ]]; then
+                hosts+=("$host_name")
+            fi
+        else
+            hosts+=("$host_name")
+        fi
+    done < <(grep -E '^Host ' "$CONFIG_FILE" | grep -v '^#' | sed 's/^Host //')
+    
+    printf '%s\n' "${hosts[@]}"
+}
+
+# Get host details
+get_host_details() {
+    local host_name="$1"
+    local details=""
+    
+    if [ ! -f "$CONFIG_FILE" ]; then
+        return 1
+    fi
+    
+    # Find the host block
+    local start_line=$(grep -n "^Host $host_name$" "$CONFIG_FILE" | cut -d: -f1)
+    if [ -z "$start_line" ]; then
+        return 1
+    fi
+    
+    # Find the next host or end of file
+    local next_host_line=$(grep -n "^Host " "$CONFIG_FILE" | awk -v current="$start_line" -F: '{if ($1 > current) {print $1; exit}}')
+    local end_line
+    if [ -z "$next_host_line" ]; then
+        end_line=$(wc -l < "$CONFIG_FILE")
+    else
+        end_line=$((next_host_line-1))
+    fi
+    
+    # Extract the configuration block
+    details=$(sed -n "${start_line},${end_line}p" "$CONFIG_FILE")
+    echo "$details"
+}
+
+# Display connections with details
+display_connections() {
+    local filter="$1"
+    local hosts=()
+    
+    # Get filtered hosts
+    while IFS= read -r host; do
+        hosts+=("$host")
+    done < <(get_hosts "$filter")
+    
+    if [ ${#hosts[@]} -eq 0 ]; then
+        if [ -n "$filter" ]; then
+            echo -e "${YELLOW}No connections found matching '$filter'${NC}"
+        else
+            echo -e "${YELLOW}No SSH connections defined in $CONFIG_FILE${NC}"
+        fi
+        return 1
+    fi
+    
+    echo -e "${CYAN}Available SSH connections:${NC}"
+    if [ -n "$filter" ]; then
+        echo -e "${YELLOW}Filter: '$filter'${NC}"
+    fi
+    echo "----------------------------------------"
+    
+    for i in "${!hosts[@]}"; do
+        local host_name="${hosts[$i]}"
+        local num=$((i + 1))
+        
+        echo -e "${GREEN}[$num]${NC} ${BLUE}$host_name${NC}"
+        
+        # Get and display host details
+        local details=$(get_host_details "$host_name")
+        if [ -n "$details" ]; then
+            echo "$details" | grep -E "^\s+[A-Za-z]" | while read -r detail; do
+                echo -e "    ${PURPLE}$detail${NC}"
+            done
+        fi
+        echo ""
+    done
+    
+    return 0
+}
+
+# Connect to selected host
+connect_to_host() {
+    local host_name="$1"
+    
+    echo -e "${GREEN}Connecting to $host_name...${NC}"
+    echo -e "${CYAN}Press Ctrl+C to cancel${NC}"
+    echo ""
+    
+    # Execute SSH connection
+    ssh "$host_name"
+}
+
+# Interactive mode
+interactive_mode() {
+    local filter="$1"
+    
+    echo -e "${CYAN}SSH Connect - Interactive Mode${NC}"
+    echo -e "${YELLOW}Type 'h' for help, 'q' to quit${NC}"
+    echo ""
+    
+    while true; do
+        # Display connections
+        if ! display_connections "$filter"; then
+            echo ""
+        fi
+        
+        # Show current filter
+        if [ -n "$filter" ]; then
+            echo -e "${YELLOW}Current filter: '$filter'${NC}"
+        fi
+        
+        echo ""
+        echo -e "${GREEN}Commands:${NC}"
+        echo "  [number] - Connect to server"
+        echo "  f <term> - Filter connections"
+        echo "  c        - Clear filter"
+        echo "  l        - List connections"
+        echo "  h        - Show help"
+        echo "  q        - Quit"
+        echo ""
+        
+        read -p "Enter command: " input
+        
+        case "$input" in
+            q|quit|exit)
+                echo -e "${GREEN}Goodbye!${NC}"
+                exit 0
+                ;;
+            h|help)
+                show_help
+                echo ""
+                ;;
+            l|list)
+                # Will be handled by the loop
+                ;;
+            c|clear)
+                filter=""
+                echo -e "${GREEN}Filter cleared${NC}"
+                echo ""
+                ;;
+            f\ *)
+                local new_filter=$(echo "$input" | sed 's/^f //')
+                if [ -n "$new_filter" ]; then
+                    filter="$new_filter"
+                    echo -e "${GREEN}Filter applied: '$filter'${NC}"
+                else
+                    echo -e "${RED}Please provide a search term${NC}"
+                fi
+                echo ""
+                ;;
+            [0-9]*)
+                local hosts=()
+                while IFS= read -r host; do
+                    hosts+=("$host")
+                done < <(get_hosts "$filter")
+                
+                local selected_num=$((input - 1))
+                if [ "$selected_num" -ge 0 ] && [ "$selected_num" -lt ${#hosts[@]} ]; then
+                    local selected_host="${hosts[$selected_num]}"
+                    echo ""
+                    connect_to_host "$selected_host"
+                    echo ""
+                    echo -e "${GREEN}Connection closed. Press Enter to continue...${NC}"
+                    read
+                else
+                    echo -e "${RED}Invalid selection. Please choose a number between 1 and ${#hosts[@]}${NC}"
+                    echo ""
+                fi
+                ;;
+            "")
+                # Just refresh the display
+                ;;
+            *)
+                echo -e "${RED}Unknown command: $input${NC}"
+                echo -e "${YELLOW}Type 'h' for help${NC}"
+                echo ""
+                ;;
+        esac
+    done
+}
+
+# List mode
+list_mode() {
+    display_connections "$FILTER"
+}
+
+# Main function
+main() {
+    ensure_config_file
+    
+    # Parse command line arguments
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            -h|--help)
+                show_help
+                exit 0
+                ;;
+            -i|--interactive)
+                # Default behavior, no action needed
+                shift
+                ;;
+            -l|--list)
+                list_mode
+                exit 0
+                ;;
+            -f|--filter)
+                if [ -n "$2" ]; then
+                    FILTER="$2"
+                    shift 2
+                else
+                    echo -e "${RED}Error: --filter requires a search term${NC}"
+                    exit 1
+                fi
+                ;;
+            -*)
+                echo -e "${RED}Unknown option: $1${NC}"
+                show_help
+                exit 1
+                ;;
+            *)
+                # Treat as search term
+                FILTER="$1"
+                shift
+                ;;
+        esac
+    done
+    
+    # Start interactive mode
+    interactive_mode "$FILTER"
+}
+
+# Run the script
+main "$@" 
