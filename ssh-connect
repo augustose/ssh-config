@@ -152,18 +152,34 @@ display_connections() {
         local host_name="${hosts[$i]}"
         local num=$((i + 1))
         
-        echo -e "${GREEN}[$num]${NC} ${BLUE}$host_name${NC}"
-        
-        # Get and display host details
+        # Get host details for compact display
         local details=$(get_host_details "$host_name")
-        if [ -n "$details" ]; then
-            echo "$details" | grep -E "^\s+[A-Za-z]" | while read -r detail; do
-                echo -e "    ${PURPLE}$detail${NC}"
-            done
+        local hostname=$(echo "$details" | grep -E '^\s*HostName ' | awk '{print $2}')
+        local user=$(echo "$details" | grep -E '^\s*User ' | awk '{print $2}')
+        local port=$(echo "$details" | grep -E '^\s*Port ' | awk '{print $2}')
+        local key=$(echo "$details" | grep -E '^\s*IdentityFile ' | awk '{print $2}')
+        
+        # Build compact info string
+        local info=""
+        if [ -n "$hostname" ]; then
+            info+="→ $hostname"
         fi
-        echo ""
+        if [ -n "$user" ]; then
+            info+=" (${user})"
+        fi
+        if [ -n "$port" ] && [ "$port" != "22" ]; then
+            info+=" :$port"
+        fi
+        if [ -n "$key" ]; then
+            local key_name=$(basename "$key")
+            info+=" [key: $key_name]"
+        fi
+        
+        # Display compact line
+        printf "${GREEN}[%2d]${NC} ${BLUE}%-20s${NC} ${PURPLE}%s${NC}\n" "$num" "$host_name" "$info"
     done
     
+    echo ""
     return 0
 }
 
