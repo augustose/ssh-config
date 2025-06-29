@@ -1,225 +1,225 @@
 # SSH Configuration Manager
 
-Una colección de scripts para gestionar fácilmente las conexiones SSH desde la línea de comandos.
+A collection of scripts to easily manage SSH connections from the command line.
 
-## 📋 Descripción
+## 📋 Description
 
-Este proyecto incluye dos scripts principales:
+This project includes two main scripts:
 
-- **`ssh-config`**: Gestor de configuraciones SSH para agregar, editar, listar y comentar conexiones
-- **`ssh-connect`**: Conectador SSH interactivo con filtros y selección visual
+- **`ssh-config`**: SSH configuration manager to add, edit, list and comment connections
+- **`ssh-connect`**: Interactive SSH connector with filters and visual selection
 
-## 🚀 Características
+## 🚀 Features
 
 ### ssh-config
-- ✅ Agregar nuevas configuraciones SSH
-- ✅ Editar configuraciones existentes
-- ✅ Listar todas las configuraciones
-- ✅ Comentar/descomentar configuraciones
-- ✅ Editar el archivo de configuración directamente
-- ✅ Interfaz de línea de comandos intuitiva
+- ✅ Add new SSH configurations
+- ✅ Edit existing configurations
+- ✅ List all configurations
+- ✅ Comment/uncomment configurations
+- ✅ Edit configuration file directly
+- ✅ Intuitive command line interface
 
 ### ssh-connect
-- ✅ Modo interactivo con interfaz colorida
-- ✅ Filtrado de conexiones por nombre
-- ✅ Selección numérica de servidores
-- ✅ Visualización de detalles de conexión
-- ✅ Búsqueda en tiempo real
-- ✅ Modo de solo listado
+- ✅ Interactive mode with colorful interface
+- ✅ Filter connections by name
+- ✅ Numeric server selection
+- ✅ Connection details visualization
+- ✅ Real-time search
+- ✅ List-only mode
 
-## 📦 Instalación
+## 📦 Installation
 
 ### macOS
 
-1. **Clona o descarga los scripts:**
+1. **Clone or download the scripts:**
 ```bash
-# Opción 1: Clonar desde Git
+# Option 1: Clone from Git
 git clone https://github.com/augustose/ssh-config.git
 cd ssh-config
 
-# Opción 2: Descargar directamente
+# Option 2: Download directly
 curl -O https://raw.githubusercontent.com/augustose/ssh-config/main/ssh-config
 curl -O https://raw.githubusercontent.com/augustose/ssh-config/main/ssh-connect
 ```
 
-2. **Hacer ejecutables los scripts:**
+2. **Make scripts executable:**
 ```bash
 chmod +x ssh-config ssh-connect
 ```
 
-3. **Instalar en el PATH (opcional):**
+3. **Install in PATH (optional):**
 ```bash
-# Opción A: Mover a /usr/local/bin (recomendado)
+# Option A: Move to /usr/local/bin (recommended)
 sudo cp ssh-config ssh-connect /usr/local/bin/
 
-# Opción B: Crear enlaces simbólicos
+# Option B: Create symbolic links
 sudo ln -s $(pwd)/ssh-config /usr/local/bin/ssh-config
 sudo ln -s $(pwd)/ssh-connect /usr/local/bin/ssh-connect
 
-# Opción C: Agregar al PATH del usuario
+# Option C: Add to user PATH
 echo 'export PATH="$HOME/bin:$PATH"' >> ~/.zshrc
 source ~/.zshrc
 ```
 
 ### Linux
 
-1. **Descargar los scripts:**
+1. **Download the scripts:**
 ```bash
-# Opción 1: Clonar desde Git
+# Option 1: Clone from Git
 git clone https://github.com/augustose/ssh-config.git
 cd ssh-config
 
-# Opción 2: Descargar directamente
+# Option 2: Download directly
 wget https://raw.githubusercontent.com/augustose/ssh-config/main/ssh-config
 wget https://raw.githubusercontent.com/augustose/ssh-config/main/ssh-connect
 ```
 
-2. **Hacer ejecutables los scripts:**
+2. **Make scripts executable:**
 ```bash
 chmod +x ssh-config ssh-connect
 ```
 
-3. **Instalar en el PATH:**
+3. **Install in PATH:**
 ```bash
-# Opción A: Mover a /usr/local/bin
+# Option A: Move to /usr/local/bin
 sudo cp ssh-config ssh-connect /usr/local/bin/
 
-# Opción B: Crear enlaces simbólicos
+# Option B: Create symbolic links
 sudo ln -s $(pwd)/ssh-config /usr/local/bin/ssh-config
 sudo ln -s $(pwd)/ssh-connect /usr/local/bin/ssh-connect
 
-# Opción C: Agregar al PATH del usuario
+# Option C: Add to user PATH
 echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-## 📖 Uso
+## 📖 Usage
 
 ### ssh-config
 
-#### Comandos disponibles:
+#### Available commands:
 ```bash
 ssh-config [OPTION]
 ```
 
-#### Opciones:
-- `add, -a` - Agregar nueva configuración SSH
-- `comment, -c` - Comentar configuración existente
-- `list, -l` - Listar todas las configuraciones
-- `edit, -e` - Editar archivo de configuración con VI
-- `update, -u` - Actualizar configuración existente
-- `help, -h` - Mostrar ayuda
+#### Options:
+- `add, -a` - Add new SSH configuration
+- `comment, -c` - Comment existing configuration
+- `list, -l` - List all configurations
+- `edit, -e` - Edit configuration file with VI
+- `update, -u` - Update existing configuration
+- `help, -h` - Show help
 
-#### Ejemplos:
+#### Examples:
 ```bash
-# Agregar nueva configuración
+# Add new configuration
 ssh-config -a
 
-# Listar configuraciones
+# List configurations
 ssh-config -l
 
-# Comentar configuración 'server'
+# Comment configuration 'server'
 ssh-config -c server
 
-# Editar archivo de configuración
+# Edit configuration file
 ssh-config -e
 
-# Actualizar configuración existente
+# Update existing configuration
 ssh-config -u
 ```
 
 ### ssh-connect
 
-#### Modos de uso:
+#### Usage modes:
 ```bash
 ssh-connect [OPTION] [SEARCH_TERM]
 ```
 
-#### Opciones:
-- `-h, --help` - Mostrar ayuda
-- `-i, --interactive` - Modo interactivo (por defecto)
-- `-l, --list` - Solo listar conexiones
-- `-f, --filter` - Aplicar filtro a nombres de conexión
+#### Options:
+- `-h, --help` - Show help
+- `-i, --interactive` - Interactive mode (default)
+- `-l, --list` - List connections only
+- `-f, --filter` - Apply filter to connection names
 
-#### Ejemplos:
+#### Examples:
 ```bash
-# Modo interactivo
+# Interactive mode
 ssh-connect
 
-# Listar todas las conexiones
+# List all connections
 ssh-connect -l
 
-# Filtrar conexiones que contengan 'production'
+# Filter connections containing 'production'
 ssh-connect production
 
-# Aplicar filtro específico
+# Apply specific filter
 ssh-connect -f staging
 ```
 
-#### Comandos en modo interactivo:
-- `[número]` - Conectar al servidor seleccionado
-- `f <término>` - Filtrar conexiones por término
-- `c` - Limpiar filtro
-- `l` - Listar conexiones
-- `h` - Mostrar ayuda
-- `q` - Salir
+#### Interactive mode commands:
+- `[number]` - Connect to selected server
+- `f <term>` - Filter connections by term
+- `c` - Clear filter
+- `l` - List connections
+- `h` - Show help
+- `q` - Quit
 
-## 🔧 Configuración
+## 🔧 Configuration
 
-### Archivo de configuración SSH
+### SSH Configuration File
 
-Los scripts utilizan el archivo de configuración SSH estándar ubicado en:
+The scripts use the standard SSH configuration file located at:
 - **macOS/Linux**: `~/.ssh/config`
 
-Si el archivo no existe, se creará automáticamente con los permisos correctos.
+If the file doesn't exist, it will be created automatically with correct permissions.
 
-### Configuración inicial
+### Initial Setup
 
-Para comenzar rápidamente, puedes usar el archivo de ejemplo incluido:
+To get started quickly, you can use the included example file:
 
 ```bash
-# Copiar el archivo de ejemplo
+# Copy the example file
 cp ssh-config.example ~/.ssh/config
 
-# Editar con tus configuraciones reales
+# Edit with your real configurations
 ssh-config -e
 ```
 
-### Estructura del archivo de configuración
+### Configuration File Structure
 
 ```bash
-Host nombre-servidor
+Host server-name
     HostName example.com
-    User usuario
+    User username
     Port 22
     IdentityFile ~/.ssh/id_rsa
     ForwardAgent yes
     ServerAliveInterval 60
 ```
 
-## 🎨 Características visuales
+## 🎨 Visual Features
 
 ### ssh-connect
-- **Interfaz colorida** para mejor legibilidad
-- **Números de selección** para conexiones
-- **Detalles de configuración** mostrados con colores
-- **Mensajes informativos** con códigos de color
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
 
-### Colores utilizados:
-- 🔵 **Azul**: Nombres de servidores
-- 🟢 **Verde**: Números de selección y mensajes de éxito
-- 🟡 **Amarillo**: Advertencias y filtros activos
-- 🔴 **Rojo**: Errores
-- 🟣 **Púrpura**: Detalles de configuración
-- 🔵 **Cian**: Títulos y encabezados
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
 
-## 📝 Ejemplos de uso
+## 📝 Usage Examples
 
-### Agregar una nueva conexión SSH
+### Adding a new SSH connection
 ```bash
 $ ssh-config -a
 Adding new SSH configuration...
-Host name (alias): mi-servidor
+Host name (alias): my-server
 Server address (hostname/IP): example.com
 SSH user: admin
 SSH port [22]: 2222
@@ -230,10 +230,10 @@ Use ForwardAgent? (y/n): y
 Use ServerAliveInterval? (y/n): y
 
 Configuration added successfully.
-You can now connect using: ssh mi-servidor
+You can now connect using: ssh my-server
 ```
 
-### Conectar usando ssh-connect
+### Connecting using ssh-connect
 ```bash
 $ ssh-connect
 SSH Connect - Interactive Mode
@@ -269,62 +269,62 @@ Connecting to prod-server...
 Press Ctrl+C to cancel
 ```
 
-## 🔒 Seguridad
+## 🔒 Security
 
-- Los scripts respetan los permisos del archivo de configuración SSH
-- El archivo `~/.ssh/config` se crea con permisos `600` (solo lectura para el propietario)
-- El directorio `~/.ssh` se crea con permisos `700` si no existe
-- No se almacenan contraseñas ni información sensible
-- **Importante**: Nunca compartas tu archivo `~/.ssh/config` real, ya que puede contener información sensible
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
 
-## 🐛 Solución de problemas
+## 🐛 Troubleshooting
 
 ### Error: "Permission denied"
 ```bash
-# Verificar permisos del archivo de configuración
+# Check configuration file permissions
 ls -la ~/.ssh/config
 
-# Corregir permisos si es necesario
+# Fix permissions if necessary
 chmod 600 ~/.ssh/config
 chmod 700 ~/.ssh
 ```
 
 ### Error: "No SSH configurations defined"
-- Verificar que el archivo `~/.ssh/config` existe
-- Verificar que contiene configuraciones válidas
-- Usar `ssh-config -a` para agregar la primera configuración
-- Usar el archivo de ejemplo: `cp ssh-config.example ~/.ssh/config`
+- Verify that `~/.ssh/config` file exists
+- Verify it contains valid configurations
+- Use `ssh-config -a` to add the first configuration
+- Use the example file: `cp ssh-config.example ~/.ssh/config`
 
 ### Error: "Command not found"
-- Verificar que los scripts están en el PATH
-- Verificar que tienen permisos de ejecución (`chmod +x`)
-- Usar rutas absolutas si es necesario
+- Verify scripts are in PATH
+- Verify they have execution permissions (`chmod +x`)
+- Use absolute paths if necessary
 
-## 📄 Licencia
+## 📄 License
 
-Este proyecto está licenciado bajo la Licencia Apache 2.0. Ver el archivo [LICENSE](LICENSE) para más detalles.
+This project is licensed under the Apache License 2.0. See the [LICENSE](LICENSE) file for details.
 
-## 👨‍💻 Autor
+## 👨‍💻 Author
 
 **Augusto Sosa Escalada** - [augustose@gmail.com](mailto:augustose@gmail.com)
 
-## 🤝 Contribuciones
+## 🤝 Contributing
 
-Las contribuciones son bienvenidas. Por favor:
+Contributions are welcome. Please:
 
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
+1. Fork the project
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## 📞 Soporte
+## 📞 Support
 
-Si encuentras algún problema o tienes alguna pregunta:
+If you encounter any issues or have questions:
 
-- Abre un issue en GitHub
-- Contacta al autor: [augustose@gmail.com](mailto:augustose@gmail.com)
+- Open an issue on GitHub
+- Contact the author: [augustose@gmail.com](mailto:augustose@gmail.com)
 
 ---
 
-⭐ **¡Si este proyecto te es útil, considera darle una estrella en GitHub!** 
+⭐ **If this project is useful to you, consider giving it a star on GitHub!** 
