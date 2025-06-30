@@ -19,6 +19,7 @@
 
 CONFIG_FILE="$HOME/.ssh/config"
 FILTER=""
+SELECTED_HOSTS=()
 
 # Colors for output
 RED='\033[0;31m'
@@ -55,19 +56,39 @@ show_help() {
     echo "  -l, --list     List all available connections"
     echo "  -f, --filter   Apply filter to connection names"
     echo ""
+    echo "Parallel Connection Options:"
+    echo "  --parallel <host1> <host2> ...  Open multiple terminal windows"
+    echo "  --parallel-tmux <host1> <host2> ...  Use tmux with split panes"
+    echo "  --broadcast <command> <host1> <host2> ...  Run command on multiple servers"
+    echo "  --multi        Interactive multi-server mode"
+    echo ""
     echo "Examples:"
     echo "  ssh-connect                    # Interactive mode"
     echo "  ssh-connect -l                 # List all connections"
     echo "  ssh-connect production         # Filter connections containing 'production'"
     echo "  ssh-connect -f staging         # Same as above"
+    echo "  ssh-connect --parallel prod staging dev  # Open 3 terminal windows"
+    echo "  ssh-connect --parallel-tmux prod staging  # Use tmux with split panes"
+    echo "  ssh-connect --broadcast 'uptime' prod staging  # Run uptime on both servers"
+    echo "  ssh-connect --multi            # Interactive multi-server mode"
     echo ""
     echo "Interactive Mode Commands:"
     echo "  [number]       Connect to the numbered server"
     echo "  f <term>       Filter connections by term"
     echo "  c              Clear filter"
     echo "  l              List connections"
-    echo "  q              Quit"
     echo "  h              Show help"
+    echo "  q              Quit"
+    echo ""
+    echo "Multi-Server Mode Commands:"
+    echo "  [number]       Toggle selection of server"
+    echo "  a              Select all servers"
+    echo "  n              Select none"
+    echo "  s              Start multi-server session"
+    echo "  f <term>       Filter connections by term"
+    echo "  c              Clear filter"
+    echo "  h              Show help"
+    echo "  q              Quit"
 }
 
 # Get all available hosts from config file
@@ -183,6 +204,72 @@ display_connections() {
     return 0
 }
 
+# Display connections for multi-server selection
+display_connections_multi() {
+    local filter="$1"
+    local hosts=()
+    
+    # Get filtered hosts
+    while IFS= read -r host; do
+        hosts+=("$host")
+    done < <(get_hosts "$filter")
+    
+    if [ ${#hosts[@]} -eq 0 ]; then
+        if [ -n "$filter" ]; then
+            echo -e "${YELLOW}No connections found matching '$filter'${NC}"
+        else
+            echo -e "${YELLOW}No SSH connections defined in $CONFIG_FILE${NC}"
+        fi
+        return 1
+    fi
+    
+    echo -e "${CYAN}Select servers (space to select, enter to confirm):${NC}"
+    if [ -n "$filter" ]; then
+        echo -e "${YELLOW}Filter: '$filter'${NC}"
+    fi
+    echo "----------------------------------------"
+    
+    for i in "${!hosts[@]}"; do
+        local host_name="${hosts[$i]}"
+        local num=$((i + 1))
+        
+        # Check if host is selected
+        local selected="☐"
+        if [[ " ${SELECTED_HOSTS[@]} " =~ " ${host_name} " ]]; then
+            selected="☑"
+        fi
+        
+        # Get host details for compact display
+        local details=$(get_host_details "$host_name")
+        local hostname=$(echo "$details" | grep -E '^\s*HostName ' | awk '{print $2}')
+        local user=$(echo "$details" | grep -E '^\s*User ' | awk '{print $2}')
+        local port=$(echo "$details" | grep -E '^\s*Port ' | awk '{print $2}')
+        local key=$(echo "$details" | grep -E '^\s*IdentityFile ' | awk '{print $2}')
+        
+        # Build compact info string
+        local info=""
+        if [ -n "$hostname" ]; then
+            info+="→ $hostname"
+        fi
+        if [ -n "$user" ]; then
+            info+=" (${user})"
+        fi
+        if [ -n "$port" ] && [ "$port" != "22" ]; then
+            info+=" :$port"
+        fi
+        if [ -n "$key" ]; then
+            local key_name=$(basename "$key")
+            info+=" [key: $key_name]"
+        fi
+        
+        # Display compact line with selection checkbox
+        printf "${GREEN}[%2d]${NC} %s ${BLUE}%-20s${NC} ${PURPLE}%s${NC}\n" "$num" "$selected" "$host_name" "$info"
+    done
+    
+    echo ""
+    return 0
+}
+
 # Connect to selected host
 connect_to_host() {
     local host_name="$1"
@@ -193,6 +280,404 @@ connect_to_host() {
     
     # Execute SSH connection
     ssh "$host_name"
+}
+
+# Parallel connection - multiple terminal windows
+parallel_connect() {
+    local hosts=("$@")
+    
+    if [ ${#hosts[@]} -eq 0 ]; then
+        echo -e "${RED}Error: No hosts specified for parallel connection${NC}"
+        exit 1
+    fi
+    
+    echo -e "${CYAN}Opening ${#hosts[@]} terminal windows for parallel connections...${NC}"
+    
+    for host in "${hosts[@]}"; do
+        # Check if host exists in config
+        if ! grep -q "^Host $host$" "$CONFIG_FILE"; then
+            echo -e "${RED}Warning: Host '$host' not found in SSH config${NC}"
+            continue
+        fi
+        
+        # Open new terminal window/tab based on OS
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            # macOS
+            osascript -e "tell application \"Terminal\" to do script \"ssh $host\""
+        elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+            # Linux - try different terminal emulators
+            if command -v gnome-terminal &> /dev/null; then
+                gnome-terminal -- ssh "$host" &
+            elif command -v konsole &> /dev/null; then
+                konsole -e ssh "$host" &
+            elif command -v xterm &> /dev/null; then
+                xterm -e ssh "$host" &
+            else
+                echo -e "${RED}No supported terminal emulator found${NC}"
+                exit 1
+            fi
+        else
+            echo -e "${RED}Unsupported operating system for parallel connections${NC}"
+            exit 1
+        fi
+        
+        echo -e "${GREEN}Opened terminal for $host${NC}"
+    done
+    
+    echo -e "${GREEN}All terminal windows opened successfully!${NC}"
+}
+
+# Parallel connection with tmux
+parallel_connect_tmux() {
+    local hosts=("$@")
+    
+    if [ ${#hosts[@]} -eq 0 ]; then
+        echo -e "${RED}Error: No hosts specified for tmux parallel connection${NC}"
+        exit 1
+    fi
+    
+    # Check if tmux is available
+    if ! command -v tmux &> /dev/null; then
+        echo -e "${RED}Error: tmux is not installed${NC}"
+        echo "Please install tmux to use this feature"
+        exit 1
+    fi
+    
+    echo -e "${CYAN}Creating tmux session with ${#hosts[@]} panes...${NC}"
+    
+    # Create new tmux session
+    local session_name="ssh-parallel-$(date +%s)"
+    tmux new-session -d -s "$session_name" -n "ssh-parallel"
+    
+    # Connect to first host in the main pane
+    local first_host="${hosts[0]}"
+    if grep -q "^Host $first_host$" "$CONFIG_FILE"; then
+        tmux send-keys -t "$session_name:ssh-parallel" "ssh $first_host" Enter
+        echo -e "${GREEN}Connected to $first_host in main pane${NC}"
+    else
+        echo -e "${RED}Warning: Host '$first_host' not found in SSH config${NC}"
+    fi
+    
+    # Create additional panes for remaining hosts
+    for i in $(seq 1 $((${#hosts[@]} - 1))); do
+        local host="${hosts[$i]}"
+        
+        # Check if host exists in config
+        if ! grep -q "^Host $host$" "$CONFIG_FILE"; then
+            echo -e "${RED}Warning: Host '$host' not found in SSH config${NC}"
+            continue
+        fi
+        
+        # Split pane and connect to host
+        if [ $i -eq 1 ]; then
+            tmux split-window -h -t "$session_name:ssh-parallel"
+        else
+            tmux split-window -v -t "$session_name:ssh-parallel"
+        fi
+        
+        tmux send-keys -t "$session_name:ssh-parallel" "ssh $host" Enter
+        echo -e "${GREEN}Connected to $host in pane $((i+1))${NC}"
+    done
+    
+    # Arrange panes in a grid
+    tmux select-layout -t "$session_name:ssh-parallel" tiled
+    
+    # Attach to the session
+    echo -e "${GREEN}Attaching to tmux session '$session_name'...${NC}"
+    echo -e "${YELLOW}Use 'Ctrl+b d' to detach from session${NC}"
+    tmux attach-session -t "$session_name"
+}
+
+# Broadcast command to multiple servers
+broadcast_command() {
+    local command="$1"
+    shift
+    local hosts=("$@")
+    
+    if [ -z "$command" ]; then
+        echo -e "${RED}Error: No command specified for broadcasting${NC}"
+        exit 1
+    fi
+    
+    if [ ${#hosts[@]} -eq 0 ]; then
+        echo -e "${RED}Error: No hosts specified for command broadcasting${NC}"
+        exit 1
+    fi
+    
+    echo -e "${CYAN}Broadcasting command: '$command' to ${#hosts[@]} servers...${NC}"
+    echo ""
+    
+    # Create temporary directory for output
+    local temp_dir=$(mktemp -d)
+    local pids=()
+    
+    # Execute command on each host in parallel
+    for host in "${hosts[@]}"; do
+        # Check if host exists in config
+        if ! grep -q "^Host $host$" "$CONFIG_FILE"; then
+            echo -e "${RED}Warning: Host '$host' not found in SSH config${NC}"
+            continue
+        fi
+        
+        # Execute command in background and capture output
+        (
+            local output_file="$temp_dir/${host}.out"
+            local error_file="$temp_dir/${host}.err"
+            
+            ssh "$host" "$command" > "$output_file" 2> "$error_file"
+            local exit_code=$?
+            
+            echo "$exit_code" > "$temp_dir/${host}.exit"
+        ) &
+        
+        pids+=($!)
+        echo -e "${GREEN}Started command on $host (PID: $!)${NC}"
+    done
+    
+    # Wait for all commands to complete
+    echo -e "${CYAN}Waiting for all commands to complete...${NC}"
+    for pid in "${pids[@]}"; do
+        wait "$pid"
+    done
+    
+    echo ""
+    echo -e "${CYAN}Results:${NC}"
+    echo "----------------------------------------"
+    
+    # Display results
+    for host in "${hosts[@]}"; do
+        local output_file="$temp_dir/${host}.out"
+        local error_file="$temp_dir/${host}.err"
+        local exit_file="$temp_dir/${host}.exit"
+        
+        if [ -f "$exit_file" ]; then
+            local exit_code=$(cat "$exit_file")
+            
+            echo -e "${BLUE}[$host]${NC} (Exit: $exit_code)"
+            
+            if [ -s "$output_file" ]; then
+                echo -e "${GREEN}Output:${NC}"
+                cat "$output_file" | sed 's/^/  /'
+            fi
+            
+            if [ -s "$error_file" ]; then
+                echo -e "${RED}Errors:${NC}"
+                cat "$error_file" | sed 's/^/  /'
+            fi
+            
+            if [ ! -s "$output_file" ] && [ ! -s "$error_file" ]; then
+                echo "  (No output)"
+            fi
+        else
+            echo -e "${RED}[$host] - Failed to execute command${NC}"
+        fi
+        
+        echo ""
+    done
+    
+    # Clean up
+    rm -rf "$temp_dir"
+}
+
+# Interactive multi-server mode
+interactive_multi_mode() {
+    local filter="$1"
+    
+    echo -e "${CYAN}SSH Connect - Multi-Server Mode${NC}"
+    echo -e "${YELLOW}Type 'h' for help, 'q' to quit${NC}"
+    echo ""
+    
+    while true; do
+        # Display connections for selection
+        if ! display_connections_multi "$filter"; then
+            echo ""
+        fi
+        
+        # Show current filter and selection
+        if [ -n "$filter" ]; then
+            echo -e "${YELLOW}Current filter: '$filter'${NC}"
+        fi
+        
+        if [ ${#SELECTED_HOSTS[@]} -gt 0 ]; then
+            echo -e "${GREEN}Selected: ${SELECTED_HOSTS[*]}${NC}"
+        else
+            echo -e "${YELLOW}No servers selected${NC}"
+        fi
+        
+        echo ""
+        echo -e "${GREEN}Commands:${NC}"
+        echo "  [number] - Toggle selection of server"
+        echo "  a        - Select all servers"
+        echo "  n        - Select none"
+        echo "  s        - Start multi-server session"
+        echo "  f <term> - Filter connections"
+        echo "  c        - Clear filter"
+        echo "  h        - Show help"
+        echo "  q        - Quit"
+        echo ""
+        
+        read -p "Enter command: " input
+        
+        case "$input" in
+            q|quit|exit)
+                echo -e "${GREEN}Goodbye!${NC}"
+                exit 0
+                ;;
+            h|help)
+                show_help
+                echo ""
+                ;;
+            a|all)
+                # Select all visible hosts
+                SELECTED_HOSTS=()
+                while IFS= read -r host; do
+                    SELECTED_HOSTS+=("$host")
+                done < <(get_hosts "$filter")
+                echo -e "${GREEN}All servers selected${NC}"
+                echo ""
+                ;;
+            n|none)
+                SELECTED_HOSTS=()
+                echo -e "${GREEN}Selection cleared${NC}"
+                echo ""
+                ;;
+            s|start)
+                if [ ${#SELECTED_HOSTS[@]} -eq 0 ]; then
+                    echo -e "${RED}No servers selected. Please select at least one server.${NC}"
+                    echo ""
+                else
+                    start_multi_server_session
+                fi
+                ;;
+            c|clear)
+                filter=""
+                echo -e "${GREEN}Filter cleared${NC}"
+                echo ""
+                ;;
+            f\ *)
+                local new_filter=$(echo "$input" | sed 's/^f //')
+                if [ -n "$new_filter" ]; then
+                    filter="$new_filter"
+                    echo -e "${GREEN}Filter applied: '$filter'${NC}"
+                else
+                    echo -e "${RED}Please provide a search term${NC}"
+                fi
+                echo ""
+                ;;
+            [0-9]*)
+                # Toggle selection of server
+                local hosts=()
+                while IFS= read -r host; do
+                    hosts+=("$host")
+                done < <(get_hosts "$filter")
+                
+                local selected_num=$((input - 1))
+                if [ "$selected_num" -ge 0 ] && [ "$selected_num" -lt ${#hosts[@]} ]; then
+                    local selected_host="${hosts[$selected_num]}"
+                    
+                    # Toggle selection
+                    if [[ " ${SELECTED_HOSTS[@]} " =~ " ${selected_host} " ]]; then
+                        # Remove from selection
+                        SELECTED_HOSTS=("${SELECTED_HOSTS[@]/$selected_host}")
+                        echo -e "${YELLOW}Removed $selected_host from selection${NC}"
+                    else
+                        # Add to selection
+                        SELECTED_HOSTS+=("$selected_host")
+                        echo -e "${GREEN}Added $selected_host to selection${NC}"
+                    fi
+                else
+                    echo -e "${RED}Invalid selection. Please choose a number between 1 and ${#hosts[@]}${NC}"
+                fi
+                echo ""
+                ;;
+            "")
+                # Just refresh the display
+                ;;
+            *)
+                echo -e "${RED}Unknown command: $input${NC}"
+                echo -e "${YELLOW}Type 'h' for help${NC}"
+                echo ""
+                ;;
+        esac
+    done
+}
+
+# Start multi-server session
+start_multi_server_session() {
+    echo -e "${CYAN}Starting multi-server session with ${#SELECTED_HOSTS[@]} servers...${NC}"
+    echo -e "${YELLOW}Commands will be executed on all selected servers${NC}"
+    echo -e "${YELLOW}Type 'exit' to end the session${NC}"
+    echo ""
+    
+    # Check if tmux is available for better experience
+    if command -v tmux &> /dev/null; then
+        echo -e "${GREEN}Using tmux for multi-server session${NC}"
+        start_tmux_multi_session
+    else
+        echo -e "${YELLOW}tmux not available, using basic multi-server mode${NC}"
+        start_basic_multi_session
+    fi
+}
+
+# Start tmux-based multi-server session
+start_tmux_multi_session() {
+    local session_name="ssh-multi-$(date +%s)"
+    
+    # Create tmux session with one pane per server
+    tmux new-session -d -s "$session_name" -n "multi-ssh"
+    
+    # Create panes for each selected host
+    for i in "${!SELECTED_HOSTS[@]}"; do
+        local host="${SELECTED_HOSTS[$i]}"
+        
+        if [ $i -eq 0 ]; then
+            # First host goes in main pane
+            tmux send-keys -t "$session_name:multi-ssh" "echo 'Connected to $host'; ssh $host" Enter
+        else
+            # Split for additional hosts
+            if [ $i -eq 1 ]; then
+                tmux split-window -h -t "$session_name:multi-ssh"
+            else
+                tmux split-window -v -t "$session_name:multi-ssh"
+            fi
+            tmux send-keys -t "$session_name:multi-ssh" "echo 'Connected to $host'; ssh $host" Enter
+        fi
+    done
+    
+    # Arrange panes
+    tmux select-layout -t "$session_name:multi-ssh" tiled
+    
+    echo -e "${GREEN}Multi-server session started in tmux${NC}"
+    echo -e "${YELLOW}Use 'Ctrl+b d' to detach from session${NC}"
+    tmux attach-session -t "$session_name"
+}
+
+# Start basic multi-server session
+start_basic_multi_session() {
+    echo -e "${CYAN}Basic multi-server mode - commands will be broadcast to all servers${NC}"
+    echo ""
+    
+    while true; do
+        echo -e "${GREEN}Multi-server>${NC} "
+        read -r command
+        
+        if [ "$command" = "exit" ] || [ "$command" = "quit" ]; then
+            echo -e "${GREEN}Ending multi-server session${NC}"
+            break
+        fi
+        
+        if [ -n "$command" ]; then
+            echo -e "${CYAN}Broadcasting: $command${NC}"
+            echo ""
+            
+            # Execute command on all selected servers
+            for host in "${SELECTED_HOSTS[@]}"; do
+                echo -e "${BLUE}[$host]${NC}"
+                ssh "$host" "$command" 2>&1 | sed 's/^/  /'
+                echo ""
+            done
+        fi
+    done
 }
 
 # Interactive mode
@@ -316,6 +801,32 @@ main() {
                     echo -e "${RED}Error: --filter requires a search term${NC}"
                     exit 1
                 fi
+                ;;
+            --parallel)
+                shift
+                parallel_connect "$@"
+                exit 0
+                ;;
+            --parallel-tmux)
+                shift
+                parallel_connect_tmux "$@"
+                exit 0
+                ;;
+            --broadcast)
+                shift
+                if [ -n "$1" ]; then
+                    local command="$1"
+                    shift
+                    broadcast_command "$command" "$@"
+                    exit 0
+                else
+                    echo -e "${RED}Error: --broadcast requires a command${NC}"
+                    exit 1
+                fi
+                ;;
+            --multi)
+                interactive_multi_mode "$FILTER"
+                exit 0
                 ;;
             -*)
                 echo -e "${RED}Unknown option: $1${NC}"
