@@ -316,93 +316,6350 @@ Press Ctrl+C to cancel
 - No passwords or sensitive information are stored
 - **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
 
-## 🔄 Version Management
+## 🎨 Visual Features
 
-### Automatic Version Updates
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
 
-The project includes an automatic version management system:
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
 
-- **Version tracking**: All scripts display current version with `-v` flag
-- **Auto-increment**: Version automatically increments on each commit
-- **Centralized versioning**: Single `VERSION` file controls all version numbers
+## 📝 Usage Examples
 
-### Manual Version Management
-
+### Adding a new SSH connection
 ```bash
-# Show current version
-./update-version.sh show
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
 
-# Increment patch version (1.1.0 → 1.1.1)
-./update-version.sh patch
-
-# Increment minor version (1.1.0 → 1.2.0)
-./update-version.sh minor
-
-# Increment major version (1.1.0 → 2.0.0)
-./update-version.sh major
-
-# Set specific version
-./update-version.sh set 2.1.0
+Configuration added successfully.
+You can now connect using: ssh my-server
 ```
 
-### Version Information
-
+### Connecting using ssh-connect
 ```bash
-# Check ssh-config version
-ssh-config -v
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
 
-# Check ssh-connect version
-ssh-connect -v
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
 ```
 
-## 🐛 Troubleshooting
+## 🔒 Security
 
-### Error: "Permission denied"
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
 ```bash
-# Check configuration file permissions
-ls -la ~/.ssh/config
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
 
-# Fix permissions if necessary
-chmod 600 ~/.ssh/config
-chmod 700 ~/.ssh
+Configuration added successfully.
+You can now connect using: ssh my-server
 ```
 
-### Error: "No SSH configurations defined"
-- Verify that `~/.ssh/config` file exists
-- Verify it contains valid configurations
-- Use `ssh-config -a` to add the first configuration
-- Use the example file: `cp ssh-config.example ~/.ssh/config`
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
 
-### Error: "Command not found"
-- Verify scripts are in PATH
-- Verify they have execution permissions (`chmod +x`)
-- Use absolute paths if necessary
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
 
-## 📄 License
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
 
-This project is licensed under the Apache License 2.0. See the [LICENSE](LICENSE) file for details.
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
 
-## 👨‍💻 Author
+## 🔒 Security
 
-**Augusto Sosa Escalada** - [augustose@gmail.com](mailto:augustose@gmail.com)
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
 
-## 🤝 Contributing
+## 🎨 Visual Features
 
-Contributions are welcome. Please:
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
 
-1. Fork the project
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
 
-## 📞 Support
+## 📝 Usage Examples
 
-If you encounter any issues or have questions:
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
 
-- Open an issue on GitHub
-- Contact the author: [augustose@gmail.com](mailto:augustose@gmail.com)
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
 
----
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
 
-⭐ **If this project is useful to you, consider giving it a star on GitHub!** 
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.ssh/id_rsa
+Add additional options? (y/n): y
+Use ForwardAgent? (y/n): y
+Use ServerAliveInterval? (y/n): y
+
+Configuration added successfully.
+You can now connect using: ssh my-server
+```
+
+### Connecting using ssh-connect
+```bash
+$ ssh-connect
+SSH Connect - Interactive Mode
+Type 'h' for help, 'q' to quit
+
+Available SSH connections:
+----------------------------------------
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
+
+Commands:
+  [number] - Connect to server
+  f <term> - Filter connections
+  c        - Clear filter
+  l        - List connections
+  h        - Show help
+  q        - Quit
+
+Enter command: 1
+Connecting to prod-server...
+Press Ctrl+C to cancel
+```
+
+## 🔒 Security
+
+- Scripts respect SSH configuration file permissions
+- File `~/.ssh/config` is created with `600` permissions (read-only for owner)
+- Directory `~/.ssh` is created with `700` permissions if it doesn't exist
+- No passwords or sensitive information are stored
+- **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🎨 Visual Features
+
+### ssh-connect
+- **Colorful interface** for better readability
+- **Selection numbers** for connections
+- **Configuration details** displayed with colors
+- **Informative messages** with color codes
+
+### Colors used:
+- 🔵 **Blue**: Server names
+- 🟢 **Green**: Selection numbers and success messages
+- 🟡 **Yellow**: Warnings and active filters
+- 🔴 **Red**: Errors
+- 🟣 **Purple**: Configuration details
+- 🔵 **Cyan**: Titles and headers
+
+## 📝 Usage Examples
+
+### Adding a new SSH connection
+```bash
+$ ssh-config -a
+Adding new SSH configuration...
+Host name (alias): my-server
+Server address (hostname/IP): example.com
+SSH user: admin
+SSH port [22]: 2222
+Use a specific key file? (y/n): y
+Path to private key file: ~/.
