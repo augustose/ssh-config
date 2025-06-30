@@ -3,6 +3,7 @@
 # ssh-config: Manage your SSH configurations easily from the command line.
 #
 # Author: Augusto Sosa Escalada <augustose@gmail.com>
+# Version: 1.1.1
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,6 +22,17 @@
 # Options: add/a, comment/c, list/l, edit/e, update/u
 
 CONFIG_FILE="$HOME/.ssh/config"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+VERSION_FILE="$SCRIPT_DIR/VERSION"
+
+# Get version from VERSION file
+get_version() {
+    if [ -f "$VERSION_FILE" ]; then
+        cat "$VERSION_FILE" | tr -d '[:space:]'
+    else
+        echo "unknown"
+    fi
+}
 
 # Ensure the config file exists
 ensure_config_file() {
@@ -37,24 +49,39 @@ ensure_config_file() {
 
 # Show help message
 show_help() {
+    local version=$(get_version)
     echo "ssh-config: Manage your SSH configurations easily from the command line."
+    echo "Version: $version"
     echo ""
     echo "Usage: ssh-config [OPTION]"
     echo ""
     echo "Options:"
-    echo "  add, -a       Add a new SSH configuration"
-    echo "  comment, -c   Comment out an existing configuration by host name"
-    echo "  list, -l      List all SSH configurations"
-    echo "  edit, -e      Edit the SSH config file with VI"
-    echo "  update, -u    Update an existing configuration"
-    echo "  help, -h      Show this help message"
+    echo "  add, -a, a       Add a new SSH configuration"
+    echo "  comment, -c, c   Comment out an existing configuration by host name"
+    echo "  list, -l, l      List all SSH configurations"
+    echo "  edit, -e, e      Edit the SSH config file with VI"
+    echo "  update, -u, u    Update an existing configuration"
+    echo "  version, -v, v   Show version information"
+    echo "  help, -h, h      Show this help message"
     echo ""
     echo "Examples:"
-    echo "  ssh-config -a           # Add new configuration"
-    echo "  ssh-config -c server    # Comment out 'server' configuration"
-    echo "  ssh-config -l           # List all configurations"
-    echo "  ssh-config -e           # Edit the config file with VI"
-    echo "  ssh-config -u           # Update an existing configuration"
+    echo "  ssh-config a           # Add new configuration"
+    echo "  ssh-config c server    # Comment out 'server' configuration"
+    echo "  ssh-config l           # List all configurations"
+    echo "  ssh-config e           # Edit the config file with VI"
+    echo "  ssh-config u           # Update an existing configuration"
+    echo "  ssh-config v           # Show version"
+    echo "  ssh-config h           # Show help"
+}
+
+# Show version information
+show_version() {
+    local version=$(get_version)
+    echo "ssh-config version $version"
+    echo "SSH Configuration Manager"
+    echo "Author: Augusto Sosa Escalada <augustose@gmail.com>"
+    echo "License: Apache License 2.0"
+    echo "GitHub: https://github.com/augustose/ssh-config"
 }
 
 # Add new configuration
@@ -268,22 +295,25 @@ main() {
     ensure_config_file
     
     case "$1" in
-        add|-a)
+        add|-a|a)
             add_config
             ;;
-        comment|-c)
+        comment|-c|c)
             comment_config "$2"
             ;;
-        list|-l)
+        list|-l|l)
             list_configs
             ;;
-        edit|-e)
+        edit|-e|e)
             edit_config
             ;;
-        update|-u)
+        update|-u|u)
             update_config
             ;;
-        help|-h)
+        version|-v|v)
+            show_version
+            ;;
+        help|-h|h)
             show_help
             ;;
         *)

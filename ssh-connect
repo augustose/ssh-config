@@ -3,6 +3,7 @@
 # ssh-connect: Interactive SSH connection manager
 #
 # Author: Augusto Sosa Escalada <augustose@gmail.com>
+# Version: 1.1.1
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,6 +21,8 @@
 CONFIG_FILE="$HOME/.ssh/config"
 FILTER=""
 SELECTED_HOSTS=()
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+VERSION_FILE="$SCRIPT_DIR/VERSION"
 
 # Colors for output
 RED='\033[0;31m'
@@ -29,6 +32,15 @@ BLUE='\033[0;34m'
 PURPLE='\033[0;35m'
 CYAN='\033[0;36m'
 NC='\033[0m' # No Color
+
+# Get version from VERSION file
+get_version() {
+    if [ -f "$VERSION_FILE" ]; then
+        cat "$VERSION_FILE" | tr -d '[:space:]'
+    else
+        echo "unknown"
+    fi
+}
 
 # Ensure the config file exists
 ensure_config_file() {
@@ -46,31 +58,36 @@ ensure_config_file() {
 
 # Show help message
 show_help() {
+    local version=$(get_version)
     echo -e "${CYAN}ssh-connect: Interactive SSH connection manager${NC}"
+    echo "Version: $version"
     echo ""
     echo "Usage: ssh-connect [OPTION] [SEARCH_TERM]"
     echo ""
     echo "Options:"
-    echo "  -h, --help     Show this help message"
-    echo "  -i, --interactive  Start in interactive mode (default)"
-    echo "  -l, --list     List all available connections"
-    echo "  -f, --filter   Apply filter to connection names"
+    echo "  -h, --help, h     Show this help message"
+    echo "  -i, --interactive, i  Start in interactive mode (default)"
+    echo "  -l, --list, l     List all available connections"
+    echo "  -f, --filter, f   Apply filter to connection names"
+    echo "  -v, --version, v  Show version information"
     echo ""
     echo "Parallel Connection Options:"
     echo "  --parallel <host1> <host2> ...  Open multiple terminal windows"
     echo "  --parallel-tmux <host1> <host2> ...  Use tmux with split panes"
     echo "  --broadcast <command> <host1> <host2> ...  Run command on multiple servers"
-    echo "  --multi        Interactive multi-server mode"
+    echo "  --multi, m        Interactive multi-server mode"
     echo ""
     echo "Examples:"
     echo "  ssh-connect                    # Interactive mode"
-    echo "  ssh-connect -l                 # List all connections"
+    echo "  ssh-connect l                  # List all connections"
     echo "  ssh-connect production         # Filter connections containing 'production'"
-    echo "  ssh-connect -f staging         # Same as above"
+    echo "  ssh-connect f staging          # Same as above"
     echo "  ssh-connect --parallel prod staging dev  # Open 3 terminal windows"
     echo "  ssh-connect --parallel-tmux prod staging  # Use tmux with split panes"
     echo "  ssh-connect --broadcast 'uptime' prod staging  # Run uptime on both servers"
-    echo "  ssh-connect --multi            # Interactive multi-server mode"
+    echo "  ssh-connect m                  # Interactive multi-server mode"
+    echo "  ssh-connect v                  # Show version"
+    echo "  ssh-connect h                  # Show help"
     echo ""
     echo "Interactive Mode Commands:"
     echo "  [number]       Connect to the numbered server"
@@ -89,6 +106,24 @@ show_help() {
     echo "  c              Clear filter"
     echo "  h              Show help"
     echo "  q              Quit"
+}
+
+# Show version information
+show_version() {
+    local version=$(get_version)
+    echo -e "${CYAN}ssh-connect version $version${NC}"
+    echo "Interactive SSH Connection Manager"
+    echo "Author: Augusto Sosa Escalada <augustose@gmail.com>"
+    echo "License: Apache License 2.0"
+    echo "GitHub: https://github.com/augustose/ssh-config"
+    echo ""
+    echo -e "${GREEN}Features:${NC}"
+    echo "  • Interactive server selection"
+    echo "  • Parallel connections with tmux"
+    echo "  • Command broadcasting"
+    echo "  • Multi-server mode"
+    echo "  • Connection filtering"
+    echo "  • Compact server display"
 }
 
 # Get all available hosts from config file
@@ -514,7 +549,6 @@ interactive_multi_mode() {
         echo "  c        - Clear filter"
         echo "  h        - Show help"
         echo "  q        - Quit"
-        echo ""
         
         read -p "Enter command: " input
         
@@ -781,19 +815,19 @@ main() {
     # Parse command line arguments
     while [[ $# -gt 0 ]]; do
         case $1 in
-            -h|--help)
+            -h|--help|h)
                 show_help
                 exit 0
                 ;;
-            -i|--interactive)
+            -i|--interactive|i)
                 # Default behavior, no action needed
                 shift
                 ;;
-            -l|--list)
+            -l|--list|l)
                 list_mode
                 exit 0
                 ;;
-            -f|--filter)
+            -f|--filter|f)
                 if [ -n "$2" ]; then
                     FILTER="$2"
                     shift 2
@@ -801,6 +835,10 @@ main() {
                     echo -e "${RED}Error: --filter requires a search term${NC}"
                     exit 1
                 fi
+                ;;
+            -v|--version|v)
+                show_version
+                exit 0
                 ;;
             --parallel)
                 shift
@@ -824,7 +862,7 @@ main() {
                     exit 1
                 fi
                 ;;
-            --multi)
+            --multi|m)
                 interactive_multi_mode "$FILTER"
                 exit 0
                 ;;

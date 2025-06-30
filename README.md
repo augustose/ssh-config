@@ -2,6 +2,8 @@
 
 A collection of scripts to easily manage SSH connections from the command line.
 
+**Current Version: 1.1.0**
+
 ## 📋 Description
 
 This project includes two main scripts:
@@ -26,6 +28,10 @@ This project includes two main scripts:
 - ✅ Connection details visualization
 - ✅ Real-time search
 - ✅ List-only mode
+- ✅ Parallel connections with multiple terminal windows
+- ✅ Tmux integration with split panes
+- ✅ Command broadcasting to multiple servers
+- ✅ Interactive multi-server mode
 
 ## 📦 Installation
 
@@ -103,29 +109,36 @@ ssh-config [OPTION]
 ```
 
 #### Options:
-- `add, -a` - Add new SSH configuration
-- `comment, -c` - Comment existing configuration
-- `list, -l` - List all configurations
-- `edit, -e` - Edit configuration file with VI
-- `update, -u` - Update existing configuration
-- `help, -h` - Show help
+- `add, -a, a` - Add new SSH configuration
+- `comment, -c, c` - Comment existing configuration
+- `list, -l, l` - List all configurations
+- `edit, -e, e` - Edit configuration file with VI
+- `update, -u, u` - Update existing configuration
+- `version, -v, v` - Show version information
+- `help, -h, h` - Show help
 
 #### Examples:
 ```bash
 # Add new configuration
-ssh-config -a
+ssh-config a
 
 # List configurations
-ssh-config -l
+ssh-config l
 
 # Comment configuration 'server'
-ssh-config -c server
+ssh-config c server
 
 # Edit configuration file
-ssh-config -e
+ssh-config e
 
 # Update existing configuration
-ssh-config -u
+ssh-config u
+
+# Show version
+ssh-config v
+
+# Show help
+ssh-config h
 ```
 
 ### ssh-connect
@@ -136,10 +149,17 @@ ssh-connect [OPTION] [SEARCH_TERM]
 ```
 
 #### Options:
-- `-h, --help` - Show help
-- `-i, --interactive` - Interactive mode (default)
-- `-l, --list` - List connections only
-- `-f, --filter` - Apply filter to connection names
+- `-h, --help, h` - Show help
+- `-i, --interactive, i` - Interactive mode (default)
+- `-l, --list, l` - List connections only
+- `-f, --filter, f` - Apply filter to connection names
+- `-v, --version, v` - Show version information
+
+#### Parallel Connection Options:
+- `--parallel <host1> <host2> ...` - Open multiple terminal windows
+- `--parallel-tmux <host1> <host2> ...` - Use tmux with split panes
+- `--broadcast <command> <host1> <host2> ...` - Run command on multiple servers
+- `--multi, m` - Interactive multi-server mode
 
 #### Examples:
 ```bash
@@ -147,13 +167,31 @@ ssh-connect [OPTION] [SEARCH_TERM]
 ssh-connect
 
 # List all connections
-ssh-connect -l
+ssh-connect l
 
 # Filter connections containing 'production'
 ssh-connect production
 
 # Apply specific filter
-ssh-connect -f staging
+ssh-connect f staging
+
+# Open 3 terminal windows
+ssh-connect --parallel prod staging dev
+
+# Use tmux with split panes
+ssh-connect --parallel-tmux prod staging
+
+# Run command on multiple servers
+ssh-connect --broadcast 'uptime' prod staging
+
+# Interactive multi-server mode
+ssh-connect m
+
+# Show version
+ssh-connect v
+
+# Show help
+ssh-connect h
 ```
 
 #### Interactive mode commands:
@@ -161,6 +199,16 @@ ssh-connect -f staging
 - `f <term>` - Filter connections by term
 - `c` - Clear filter
 - `l` - List connections
+- `h` - Show help
+- `q` - Quit
+
+#### Multi-Server Mode Commands:
+- `[number]` - Toggle selection of server
+- `a` - Select all servers
+- `n` - Select none
+- `s` - Start multi-server session
+- `f <term>` - Filter connections by term
+- `c` - Clear filter
 - `h` - Show help
 - `q` - Quit
 
@@ -267,6 +315,45 @@ Press Ctrl+C to cancel
 - Directory `~/.ssh` is created with `700` permissions if it doesn't exist
 - No passwords or sensitive information are stored
 - **Important**: Never share your real `~/.ssh/config` file as it may contain sensitive information
+
+## 🔄 Version Management
+
+### Automatic Version Updates
+
+The project includes an automatic version management system:
+
+- **Version tracking**: All scripts display current version with `-v` flag
+- **Auto-increment**: Version automatically increments on each commit
+- **Centralized versioning**: Single `VERSION` file controls all version numbers
+
+### Manual Version Management
+
+```bash
+# Show current version
+./update-version.sh show
+
+# Increment patch version (1.1.0 → 1.1.1)
+./update-version.sh patch
+
+# Increment minor version (1.1.0 → 1.2.0)
+./update-version.sh minor
+
+# Increment major version (1.1.0 → 2.0.0)
+./update-version.sh major
+
+# Set specific version
+./update-version.sh set 2.1.0
+```
+
+### Version Information
+
+```bash
+# Check ssh-config version
+ssh-config -v
+
+# Check ssh-connect version
+ssh-connect -v
+```
 
 ## 🐛 Troubleshooting
 
