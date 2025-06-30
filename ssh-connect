@@ -22,7 +22,6 @@ CONFIG_FILE="$HOME/.ssh/config"
 FILTER=""
 SELECTED_HOSTS=()
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-VERSION_FILE="$SCRIPT_DIR/VERSION"
 
 # Colors for output
 RED='\033[0;31m'
@@ -32,15 +31,6 @@ BLUE='\033[0;34m'
 PURPLE='\033[0;35m'
 CYAN='\033[0;36m'
 NC='\033[0m' # No Color
-
-# Get version from VERSION file
-get_version() {
-    if [ -f "$VERSION_FILE" ]; then
-        cat "$VERSION_FILE" | tr -d '[:space:]'
-    else
-        echo "unknown"
-    fi
-}
 
 # Ensure the config file exists
 ensure_config_file() {
@@ -58,9 +48,8 @@ ensure_config_file() {
 
 # Show help message
 show_help() {
-    local version=$(get_version)
     echo -e "${CYAN}ssh-connect: Interactive SSH connection manager${NC}"
-    echo "Version: $version"
+    echo "Version: 1.1.1"
     echo ""
     echo "Usage: ssh-connect [OPTION] [SEARCH_TERM]"
     echo ""
@@ -110,8 +99,7 @@ show_help() {
 
 # Show version information
 show_version() {
-    local version=$(get_version)
-    echo -e "${CYAN}ssh-connect version $version${NC}"
+    echo -e "${CYAN}ssh-connect version 1.1.1${NC}"
     echo "Interactive SSH Connection Manager"
     echo "Author: Augusto Sosa Escalada <augustose@gmail.com>"
     echo "License: Apache License 2.0"
