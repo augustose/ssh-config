@@ -241,20 +241,11 @@ Type 'h' for help, 'q' to quit
 
 Available SSH connections:
 ----------------------------------------
-[1] prod-server
-    HostName example.com
-    User admin
-    Port 22
-    IdentityFile ~/.ssh/id_rsa
-    ForwardAgent yes
-    ServerAliveInterval 60
-
-[2] staging-server
-    HostName staging.example.com
-    User deploy
-    Port 2222
-    IdentityFile ~/.ssh/staging_key
-    ForwardAgent yes
+[ 1] prod-server          → example.com (admin) [key: id_rsa]
+[ 2] staging-server       → staging.example.com (deploy) :2222 [key: staging_key]
+[ 3] dev-server           → dev.example.com (developer) [key: dev_key]
+[ 4] db-server            → db.example.com (dbadmin) [key: db_key]
+[ 5] web-server           → web.example.com (webadmin) [key: web_key]
 
 Commands:
   [number] - Connect to server
